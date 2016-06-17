@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include <memory>
 
 class BaseCreator
 {
@@ -7,6 +8,6 @@ public:
 	BaseCreator();
 	virtual ~BaseCreator();
 
-	virtual GameObject* CreateGameObject() const = 0;
+	virtual std::unique_ptr<GameObject> CreateGameObject() const = 0;
 };
 

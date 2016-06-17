@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <memory>
 
 class BaseCreator;
 class GameObject;
@@ -21,7 +22,7 @@ public:
 	}
 
 	bool RegisterType(std::string typeID, BaseCreator* creator);
-	GameObject* Create(std::string typeID);
+	std::unique_ptr<GameObject> Create(std::string typeID);
 
 private:
 	GameObjectFactory();

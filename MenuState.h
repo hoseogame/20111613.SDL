@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include <vector>
+#include <memory>
 
 class GameObject;
 //class GameObjectFactory;
@@ -29,6 +30,7 @@ private:
 	static const std::string menuID;
 
 	//GameObjectFactory* gameObjectFactory;
-	std::vector<GameObject*> menuObjects;
+	//std::vector<GameObject*> menuObjects;
+	std::vector<std::unique_ptr<GameObject>> menuObjects;
 };
 

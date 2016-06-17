@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include <vector>
+#include <memory>
 
 //class PlayGround;
 class GameObject;
@@ -27,6 +28,6 @@ private:
 	
 	//GameObjectFactory* gameObjectFactory;
 	//GameObject* gameObject;
-	std::vector<GameObject*> playObjects;
+	std::vector<std::unique_ptr<GameObject>> playObjects;
 };
 

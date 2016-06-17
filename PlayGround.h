@@ -4,6 +4,7 @@
 #include "BaseCreator.h"
 #include <SDL.h>
 #include <vector>
+#include <memory>
 
 
 
@@ -33,8 +34,12 @@ private:
 class PlayGroundCreator : public BaseCreator
 {
 public:
-	virtual GameObject* CreateGameObject() const
+	/*virtual GameObject* CreateGameObject() const
 	{
 		return new PlayGround();
+	}*/
+	virtual std::unique_ptr<GameObject> CreateGameObject() const
+	{
+		return std::unique_ptr<GameObject>(new PlayGround());
 	}
 };

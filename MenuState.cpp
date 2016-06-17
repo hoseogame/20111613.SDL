@@ -31,6 +31,8 @@ MenuState::~MenuState()
 		menuObjects[i] = nullptr;
 	}
 	menuObjects.clear();*/
+
+	menuObjects.clear();
 }
 
 void MenuState::Update()
@@ -53,10 +55,21 @@ bool MenuState::OnEnter()
 {
 	StateParser stateParser;
 	stateParser.ParseState("GameInfo.xml", menuID, &menuObjects, &textureIDList);
-
+	
 	//callback setting 추후 변경할 것
-	dynamic_cast<MenuButton*>(menuObjects[0])->SetCallback(MenuToPlay);
-	dynamic_cast<MenuButton*>(menuObjects[1])->SetCallback(ExitFromMenu);
+
+
+	GameObject* gameObject = menuObjects[0].release();
+	dynamic_cast<MenuButton*>(gameObject)->SetCallback(MenuToPlay);
+	menuObjects[0].reset(gameObject);
+
+	gameObject = menuObjects[1].release();
+	dynamic_cast<MenuButton*>(gameObject)->SetCallback(ExitFromMenu);
+	menuObjects[1].reset(gameObject);
+
+
+	//dynamic_cast<MenuButton*>(menuObjects[0])->SetCallback(MenuToPlay);
+	//dynamic_cast<MenuButton*>(menuObjects[1])->SetCallback(ExitFromMenu);
 
 	//-------------------------------------------------------------2
 	/*if (TheTextureManager::Instance()->Load("assets/play.png", "playbutton",
@@ -106,10 +119,11 @@ bool MenuState::OnExit()
 	for (size_t i = 0; i < menuObjects.size(); ++i)
 	{
 		menuObjects[i]->Clean();
-		delete menuObjects[i];
-		menuObjects[i] = nullptr;
+		//얻는 효과는 밑에 두 줄 제거
+		//delete menuObjects[i];
+		//menuObjects[i] = nullptr;
 	}
-	menuObjects.clear();
+	//menuObjects.clear();
 
 	return true;
 }

@@ -34,7 +34,7 @@ bool GameObjectFactory::RegisterType(std::string typeID, BaseCreator* creator)
 	return true;
 }
 
-GameObject* GameObjectFactory::Create(std::string typeID)
+std::unique_ptr<GameObject> GameObjectFactory::Create(std::string typeID)
 {
 	std::map<std::string, BaseCreator*>::iterator iter
 		= creators.find(typeID);

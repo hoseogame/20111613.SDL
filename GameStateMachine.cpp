@@ -9,11 +9,11 @@ GameStateMachine::GameStateMachine()
 
 GameStateMachine::~GameStateMachine()
 {
-	std::list<GameState*>::iterator iter;
+	std::list<std::unique_ptr<GameState>>::iterator iter;
 	for (iter = gameStates.begin(); iter != gameStates.end(); ++iter)
 	{
-		delete *iter;
-		*iter = nullptr;
+		//delete *iter;
+		//*iter = nullptr;
 	}
 	gameStates.clear();
 }
@@ -21,12 +21,17 @@ GameStateMachine::~GameStateMachine()
 
 void GameStateMachine::PushState(GameState* state)
 {
-	gameStates.push_back(state);
+	gameStates.push_back(std::unique_ptr<GameState>(state));
 	gameStates.back()->OnEnter();
 }
 
 void GameStateMachine::PopState()
 {
+	/*if(gameStates.size() < 2)
+	{
+	return;
+	}*/
+
 	if (gameStates.empty() == true)
 	{
 		return;
@@ -34,19 +39,9 @@ void GameStateMachine::PopState()
 
 	gameStates.back()->OnExit();
 
-	if(gameStates.size() < 2)
-	{
-		return;
-	}
-
-	delete gameStates.front();
-	gameStates.pop_front();
-
-	/*if (gameStates.back()->OnExit())
-	{
-		delete gameStates.front();
-		gameStates.pop_front();
-	}*/
+	//딜리트 하지 않는다.
+//	delete gameStates.front();
+//	gameStates.pop_front();
 }
 
 void GameStateMachine::ChangeState(GameState* state)
@@ -71,6 +66,11 @@ void GameStateMachine::Update()
 	if (gameStates.empty() == false)
 	{
 		gameStates.back()->Update();
+	}
+
+	if(gameStates.size() > 1)
+	{
+		gameStates.pop_front();
 	}
 }
 

@@ -29,6 +29,9 @@ void MenuButton::Update()
 			currentFrame = CLICKED;
 			released = false;
 			callback();
+
+			int a =0;
+			a += 4;
 			return;		//씬 전환 이후 객체가 소멸되므로 빠져나온다.
 		}
 		else if (TheInputHandler::Instance()->GetMouseButtonState(LEFT_BUTTON) == false)

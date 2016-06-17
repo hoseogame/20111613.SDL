@@ -26,6 +26,7 @@ public:
 
 	void ClearFromTextureMap(std::string _id)
 	{
+		SDL_DestroyTexture(textureMap[_id]);
 		textureMap.erase(_id);
 	}
 

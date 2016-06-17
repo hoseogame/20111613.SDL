@@ -24,6 +24,8 @@ PlayState::~PlayState()
 		delete gameObjectFactory;
 		gameObjectFactory = nullptr;
 	}*/
+
+	playObjects.clear();
 }
 
 
@@ -73,10 +75,11 @@ bool PlayState::OnExit()
 	for (size_t i = 0; i < playObjects.size(); ++i)
 	{
 		playObjects[i]->Clean();
-		delete playObjects[i];
-		playObjects[i] = nullptr;
+		//얻는 효과는 밑에 두 줄 제거
+		//delete playObjects[i];
+		//playObjects[i] = nullptr;
 	}
-	playObjects.clear();
+	//playObjects.clear();
 
 	return true;
 }

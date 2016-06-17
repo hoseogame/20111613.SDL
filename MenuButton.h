@@ -1,6 +1,7 @@
 #pragma once
 #include "SDLGameObject.h"
 #include "BaseCreator.h"
+#include <memory>
 
 class LoaderParams;
 class MenuState;
@@ -38,8 +39,9 @@ private:
 class MenuButtonCreator : public BaseCreator
 {
 public:
-	virtual GameObject* CreateGameObject() const
+	virtual std::unique_ptr<GameObject> CreateGameObject() const
 	{
-		return new MenuButton();
+		//return new MenuButton();
+		return std::unique_ptr<GameObject>(new MenuButton());
 	}
 };

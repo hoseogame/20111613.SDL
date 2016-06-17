@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <memory>
 
 class GameState;
 
@@ -18,6 +19,6 @@ private:
 	void PopState();
 
 private:
-	std::list<GameState*> gameStates;
+	std::list<std::unique_ptr<GameState>> gameStates;
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "tinyxml.h"
 #include <vector>
+#include <memory>
 
 class GameObject;
 
@@ -11,10 +12,10 @@ public:
 	~StateParser();
 
 	bool ParseState(const char* stateFile, std::string stateID
-		, std::vector<GameObject*>* objects, std::vector<std::string>* textureIDs);
+		, std::vector<std::unique_ptr<GameObject>>* objects, std::vector<std::string>* textureIDs);
 
 private:
-	void ParseObjects(TiXmlElement* stateRoot, std::vector<GameObject*>* objects);
+	void ParseObjects(TiXmlElement* stateRoot, std::vector<std::unique_ptr<GameObject>>* objects);
 	void ParseTextures(TiXmlElement* stateRoot, std::vector<std::string>* textureIDs);
 };
 
